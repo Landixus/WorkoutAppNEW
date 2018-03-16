@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/WorkoutTEST.unity
+- path: Assets/Scenes/V2/Home.unity
   isLoaded: 1
   isActive: 1
