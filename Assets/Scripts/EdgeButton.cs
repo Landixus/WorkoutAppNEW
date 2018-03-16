@@ -29,7 +29,7 @@ public class EdgeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler{
 		g = initialColor.g;
 		b = initialColor.b;
 
-		edge.color = new Color(r, g, b, .5f); 
+		edge.color = new Color(r, g, b, .25f); 
 	}
 
 	public void OnPointerDown(PointerEventData eventData){

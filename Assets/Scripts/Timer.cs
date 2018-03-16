@@ -11,6 +11,12 @@ public class Timer : MonoBehaviour {
 
 	private float timeRemaining;
 
+	public GameObject outerCircle;
+	public float rotationSpeed;
+	public Vector3 direction;
+	public float currentAngle;
+	public float amountToIncrementAngle;
+
 	void Awake(){
 		if (Instance == null) {
 			Instance = this;
@@ -19,6 +25,8 @@ public class Timer : MonoBehaviour {
 
 	void Start(){
 		timeRemaining = WorkoutManager.Instance.currentExercise.timeToComplete;
+
+		rotationSpeed = 360 / WorkoutManager.Instance.totalWorkoutTime;
 	}
 	
 	void Update () {
@@ -28,7 +36,15 @@ public class Timer : MonoBehaviour {
 
 			WorkoutManager.Instance.HandleTimerHittingZero();
 
+//			currentAngle = currentAngle + amountToIncrementAngle;
+//			Vector3 newAngle = new Vector3(0,0,currentAngle);
+//			outerCircle.GetComponent<RectTransform>().rotation.eulerAngles = newAngle;
+
 			timeRemaining = timeRemaining + WorkoutManager.Instance.currentExercise.timeToComplete;
 		}
+
+		outerCircle.transform.Rotate(direction * (Time.deltaTime * -rotationSpeed));
+
+		//outerCircle.transform.Rotate(0,0, rotationSpeed * Time.deltaTime, Space.Self);
 	}
 }

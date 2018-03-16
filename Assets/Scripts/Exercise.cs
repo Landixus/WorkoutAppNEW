@@ -31,9 +31,9 @@ public class Exercise : MonoBehaviour {
 
 	void Start(){
 		if (parentWorkout == WorkoutManager.Instance.currentWorkout) {
-			set1EdgeButton.exercise = this;
-			set2EdgeButton.exercise = this;
-			set3EdgeButton.exercise = this;
+//			set1EdgeButton.exercise = this;
+//			set2EdgeButton.exercise = this;
+//			set3EdgeButton.exercise = this;
 		}
 	}
 

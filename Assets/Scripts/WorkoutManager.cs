@@ -37,11 +37,13 @@ public class WorkoutManager : MonoBehaviour {
 	public Text currentExerciseDisplay;
 	public Text setsAndRepsDisplay;
 
-	public Image[] allImages;
+	public Image[] imagesToChangeColor;
 	public Text[] allText;
 
 	public Image blackOverlay;
 	public Text infoText;
+
+	public float totalWorkoutTime;
 
 	void Awake(){
 		if (Instance == null) {
@@ -90,11 +92,11 @@ public class WorkoutManager : MonoBehaviour {
 
 	void Start(){
 
-// 		//FOR TESTING  
-//		Time.timeScale = 10;
-//		
+ 		//FOR TESTING  
+		Time.timeScale = 1;
+		
 
-		allImages = FindObjectsOfType<Image>();
+		//allImages = FindObjectsOfType<Image>();
 		allText = FindObjectsOfType<Text>();
 
 		currentExercise = currentWorkout.exercises[excerciseIndex];
@@ -103,6 +105,15 @@ public class WorkoutManager : MonoBehaviour {
 
 		UpdateText();
 		UpdateColor();
+
+		//totalWorkoutTime =
+
+		foreach(Exercise exercise in currentWorkout.exercises){
+			float timeToCompleteExercise = exercise.setsRemaining * exercise.timeToComplete;
+			totalWorkoutTime = totalWorkoutTime + timeToCompleteExercise;
+			print("totalWorkoutTime in seconds " + totalWorkoutTime);
+			print("totalWorkoutTime in minutes " + totalWorkoutTime/60f);
+		}
 	}
 
 	public void SetupForNextExcersize(){
@@ -122,6 +133,11 @@ public class WorkoutManager : MonoBehaviour {
 		foreach (Text text in allText) {
 			text.color = currentExercise.set1EdgeButton.initialColor;
 		}
+
+		foreach (Image image in imagesToChangeColor){
+			image.color = currentExercise.set1EdgeButton.initialColor;
+		}
+
 		PauseButton.Instance.outerCircle.color = currentExercise.set1EdgeButton.initialColor;
 	}
 
