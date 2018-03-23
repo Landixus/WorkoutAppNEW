@@ -33,7 +33,7 @@ public class EdgeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler{
 	}
 
 	public void OnPointerDown(PointerEventData eventData){
-		WorkoutManager.Instance.infoText.text = exercise.name;
+		WorkoutManager.Instance.infoText.text = exercise.title;
 		WorkoutManager.Instance.infoText.color = initialColor;
 		WorkoutManager.Instance.blackOverlay.transform.localScale = Vector3.one;
 	}

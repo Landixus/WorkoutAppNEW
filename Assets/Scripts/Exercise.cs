@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class Exercise : MonoBehaviour {
 
-	public enum Catergory
-	{
-		HIIT,
-		MultiJoint,
-		SingleJoint,
-		AltMuscle
-	}
-		
-	public string name;
-	public Catergory category;
-	public Workout parentWorkout;
+	public string title;
+	[HideInInspector]public Workout parentWorkout;
+	public int totalSets;
 	public int setsRemaining;
 	public int repCount;
 	public int timeToComplete;
@@ -30,11 +22,12 @@ public class Exercise : MonoBehaviour {
 	}
 
 	void Start(){
-		if (parentWorkout == WorkoutManager.Instance.currentWorkout) {
-//			set1EdgeButton.exercise = this;
-//			set2EdgeButton.exercise = this;
-//			set3EdgeButton.exercise = this;
-		}
+//		if (parentWorkout == WorkoutManager.Instance.currentWorkout) {
+////			set1EdgeButton.exercise = this;
+////			set2EdgeButton.exercise = this;
+////			set3EdgeButton.exercise = this;
+//		}
+		parentWorkout = GetComponentInParent<Workout>();
 	}
 
 	public void setUpForNextEdgeButton(){
