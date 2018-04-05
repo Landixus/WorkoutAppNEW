@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class Workout : MonoBehaviour {
 
+	public string name;
+
 	public List<Exercise> exercises;
 
-	//WORKOUT
-	//	EXERSIZE
-	//		SETS
-	//		TIME TO COMPLETE 1 SET
+	[HideInInspector] public int totalTime;
 
+	void Awake(){
+		CalculateTotalTime();
+	}
+
+	public void CalculateTotalTime(){
+
+		totalTime = 0;
+
+		foreach(Exercise exercise in exercises){
+			totalTime = totalTime + (exercise.setsRemaining * exercise.timeToComplete);
+		}
+	}
 }

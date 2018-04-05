@@ -6,6 +6,7 @@ public class DynamicWheel : MonoBehaviour {
 
 	public static DynamicWheel Instance;
 
+	public Workout workout;
 	public List<Exercise> exercises;
 
 	public GameObject notchPrefab;
@@ -37,7 +38,12 @@ public class DynamicWheel : MonoBehaviour {
 
 	public int totalTime;
 
+	public PanelsGridLayout panelsGridLayout;
+
 	void Awake(){
+
+		exercises = workout.exercises;
+
 		if(Instance == null){
 			Instance = this;
 		}
@@ -45,10 +51,18 @@ public class DynamicWheel : MonoBehaviour {
 
 	void Start () {
 		OnVariableChange += VariableChangeHandler;
+
+		EstablishNotches();
 	}
 
 	void Update(){
 		noOfExersizes = exercises.Count;
+
+		#if UNITY_EDITOR
+		if(Input.GetKeyDown(KeyCode.U)){
+			EstablishNotches();
+		}
+		#endif
 	}
 
 	public void EstablishNotches(){
@@ -70,8 +84,9 @@ public class DynamicWheel : MonoBehaviour {
 		float newNotchAngle = 0;
 		Vector3 newNotchVector3;
 
-		foreach(Exercise exercise in exercises){
+		int panelIncrementer = 0;
 
+		foreach(Exercise exercise in exercises){
 
 			fractionOfPie = ((float)exercise.setsRemaining * (float)exercise.timeToComplete) / (float)totalTime;
 			prevNotchAngle = newNotchAngle;
@@ -80,17 +95,31 @@ public class DynamicWheel : MonoBehaviour {
 			notchAngles.Add(newNotchAngle);
 
 			GameObject newNotch = CreateNotch();
-			newNotch.transform.eulerAngles = newNotchVector3;
+			newNotch.transform.eulerAngles = -newNotchVector3;
 			notches.Add(newNotch);
 
-
 			PieSlice newSlice = CreatePieSlice();
-			newSlice.transform.eulerAngles = newNotchVector3;
+			newSlice.transform.eulerAngles = -newNotchVector3;
 			newSlice.image.fillAmount = fractionOfPie;
-			newSlice.image.color = Color.HSVToRGB(((newNotchAngle + prevNotchAngle) / 2)/360f,1,1); //CHANGES COLOR!
+
+			Color newColor = Color.HSVToRGB(((newNotchAngle + prevNotchAngle) / 2)/360f,1,1); //CHANGES COLOR!
+
+			newSlice.image.color = newColor;
 			//newSlice.image.color = Color.HSVToRGB(1,1,newNotchAngle/360f); //CHANGES SHADE!
 			//newSlice.image.color = Color.HSVToRGB(1,newNotchAngle/360f,1); //CHANGES WHITE!
 			pieSlices.Add(newSlice);
+			newSlice.transform.SetAsFirstSibling();
+
+			print("panelsGridLayout.panels.Count " + panelsGridLayout.panels.Count);
+			print("exercises.Count " + exercises.Count);
+
+			if(panelsGridLayout.panels.Count == exercises.Count){
+
+				print("YOOYOYOYO");
+
+				panelsGridLayout.panels[panelIncrementer].UpdateColor(newColor);
+				panelIncrementer ++;
+			}
 
 			if(exercise.setsRemaining > 1){
 
@@ -104,30 +133,30 @@ public class DynamicWheel : MonoBehaviour {
 					float amountToAddToPrevAngle = amountOfAngleToWorkWith * ((float)i/(float)exercise.setsRemaining);
 					float newSubNotchAngle = prevNotchAngle + amountToAddToPrevAngle;
 
-					print("newSubNotchAngle: " + newSubNotchAngle);
+					//print("newSubNotchAngle: " + newSubNotchAngle);
 
 					newSubNotchVector3 = new Vector3(0,0,(newSubNotchAngle));
 					GameObject newSubNotch = CreateSubNotch();
-					newSubNotch.transform.eulerAngles = newSubNotchVector3;
+					newSubNotch.transform.eulerAngles = -newSubNotchVector3;
 
 					subNotches.Add(newSubNotch);
 				}	
 			}
 		}
-		//CALCULATE TIME OF EACH EXERSIZE RELATIVE TO TOTAL TIME AND STORE THE ANGLE IN THE LIST
-
-		Vector3 newAngle;
-
-		for(int i = 0; i < exercises.Count; i++){
-			newAngle = new Vector3(0,0,(notchAngles[i]));
-
-//			print("new angle " + i + newAngle);
-
-//			GameObject newNotch = CreateNotch();
-//			newNotch.transform.eulerAngles = newAngle;
-//			notches.Add(newNotch);
-
-		}
+//		//CALCULATE TIME OF EACH EXERSIZE RELATIVE TO TOTAL TIME AND STORE THE ANGLE IN THE LIST
+//
+//		Vector3 newAngle;
+//
+//		for(int i = 0; i < exercises.Count; i++){
+//			newAngle = new Vector3(0,0,(notchAngles[i]));
+//
+////			print("new angle " + i + newAngle);
+//
+////			GameObject newNotch = CreateNotch();
+////			newNotch.transform.eulerAngles = newAngle;
+////			notches.Add(newNotch);
+//
+//		}
 	}
 
 	private void VariableChangeHandler(int newVal)

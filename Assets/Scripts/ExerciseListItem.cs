@@ -25,7 +25,7 @@ public class ExerciseListItem : MonoBehaviour {
 	public Button moreTimeButton;
 
 	void Start () {
-		title.text = exercise.name;
+		title.text = exercise.title;
 		sets.text = exercise.setsRemaining.ToString();
 		reps.text = exercise.repCount.ToString();
 		time.text = exercise.timeToComplete.ToString();
@@ -45,7 +45,7 @@ public class ExerciseListItem : MonoBehaviour {
 	}
 
 	void HandleTitleChanged(){
-		exercise.name = title.text;
+		exercise.title = title.text;
 	}
 
 	void HandleLessSetsButtonPressed(){

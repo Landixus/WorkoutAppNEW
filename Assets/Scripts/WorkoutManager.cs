@@ -125,7 +125,7 @@ public class WorkoutManager : MonoBehaviour {
 	}
 
 	public void UpdateText(){
-		currentExerciseDisplay.text = currentExercise.name;	
+		currentExerciseDisplay.text = currentExercise.title;	
 		setsAndRepsDisplay.text = "SET: " + (4 - currentExercise.setsRemaining) + " of 3 | REPS: " + currentExercise.repCount;
 	}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Hweel : CarouselScrollItem {
 
@@ -33,9 +34,16 @@ public class Hweel : CarouselScrollItem {
 	public Button playButton;
 	public Button doneButton;
 
-	public VerticalCarouselScroller innerCarousel;
+//	public PanelsCarousel innerCarousel;
+	public PanelsGridLayout panelsGridLayout;
 
-	void Awake() {
+	public DynamicWheel dynamicWheel;
+
+	public Workout workout;
+
+	public GameObject pauseMenu;
+
+	override public void Awake() {
 		base.Awake();
 
 		//rectTransform = transform as RectTransform;
@@ -44,6 +52,12 @@ public class Hweel : CarouselScrollItem {
 		_outerCircleClosedPos = outerCircleMask.sizeDelta;
 
 		//_carousel = GetComponentInParent<VerticalCarouselScroller>();
+
+		if(panelsGridLayout != null){
+			panelsGridLayout.hweel = this;
+		}else{
+			Debug.LogError("Need to assign panelsGridLayout to " + gameObject.name);
+		}
 	}
 
 	void Start(){
@@ -52,6 +66,8 @@ public class Hweel : CarouselScrollItem {
 
 		editButton.onClick.AddListener(HandleEdit);
 		doneButton.onClick.AddListener(HandleDone);
+
+		playButton.onClick.AddListener(HandlePlay);
 
 		animationSpeed = .25f;
 	}
@@ -95,7 +111,9 @@ public class Hweel : CarouselScrollItem {
 
 		_cloneHweel.parentHweel = this;
 
-		_cloneHweel.transform.SetParent(VerticalCarouselScroller.Instance.canvas.transform);
+		_cloneHweel.transform.SetParent(CanvasForHweels.Instance.transform);
+		CanvasForHweels.Instance.currentHweel = _cloneHweel;
+
 		_cloneHweel.transform.position = this.transform.position;
 		_cloneHweel.transform.localScale = this.transform.localScale;
 		//cloneHweel.transform.localScale = Vector3.one;
@@ -117,18 +135,47 @@ public class Hweel : CarouselScrollItem {
 	}
 
 	public void HandleEdit(){
+
+		foreach(GameObject hideableItem in hideableItems){
+			hideableItem.transform.localScale = Vector3.zero;
+		}
+
 		playButton.transform.localScale = Vector3.zero;
 		goToHomeButton.transform.localScale = Vector3.zero;
 		doneButton.transform.localScale = Vector3.one;
 
-		innerCarousel.gameObject.SetActive(true);
+//		innerCarousel.transform.localScale = Vector3.one;
+//		innerCarousel.PopulatePanels(workout.exercises);
+
+ 		panelsGridLayout.transform.localScale = Vector3.one;
+		panelsGridLayout.PopulatePanels(workout.exercises);
+
 	}
 
 	public void HandleDone(){
+
+		foreach(GameObject hideableItem in hideableItems){
+			hideableItem.transform.localScale = Vector3.one;
+		}
+
 		playButton.transform.localScale = Vector3.one;
 		goToHomeButton.transform.localScale = Vector3.one;
 		doneButton.transform.localScale = Vector3.zero;
+//
+//		innerCarousel.transform.localScale = Vector3.zero;
+//		innerCarousel.gameObject.SetActive(false);
 
-		innerCarousel.gameObject.SetActive(false);
+		panelsGridLayout.transform.localScale = Vector3.zero;
+
+		workout.CalculateTotalTime();
+	}
+
+	void HandlePlay(){
+
+		foreach(GameObject hideableItem in hideableItems){
+			hideableItem.transform.localScale = Vector3.zero;
+		}
+
+		SceneManager.LoadScene(1);
 	}
 }

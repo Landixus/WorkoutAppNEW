@@ -7,4 +7,11 @@ public class PieSlice : MonoBehaviour {
 
 	public Image image;
 
+	public ExerciseEditPanel panel;
+
+	public Exercise exercise;
+
+	void Awake(){
+		image = GetComponent<Image>();
+	}
 }

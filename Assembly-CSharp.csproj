@@ -69,7 +69,9 @@
      <Compile Include="Assets\Scripts\FourWorkoutMenu.cs" />
      <Compile Include="Assets\Scripts\HomeMenu.cs" />
      <Compile Include="Assets\Scripts\Hweel.cs" />
+     <Compile Include="Assets\Scripts\HweelTimer.cs" />
      <Compile Include="Assets\Scripts\PanelsCarousel.cs" />
+     <Compile Include="Assets\Scripts\PanelsGridLayout.cs" />
      <Compile Include="Assets\Scripts\PauseButton.cs" />
      <Compile Include="Assets\Scripts\PieSlice.cs" />
      <Compile Include="Assets\Scripts\SystemTimeDisplay.cs" />
@@ -84,7 +86,9 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CanvasForHweels.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DontDestroyOnLoad.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />

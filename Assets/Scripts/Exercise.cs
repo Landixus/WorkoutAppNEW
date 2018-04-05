@@ -9,7 +9,10 @@ public class Exercise : MonoBehaviour {
 	public int totalSets;
 	public int setsRemaining;
 	public int repCount;
+
 	public int timeToComplete;
+	public float timeLeftInSet;
+	public int totalTime;
 
 	public EdgeButton set1EdgeButton;
 	public EdgeButton set2EdgeButton;
@@ -18,7 +21,6 @@ public class Exercise : MonoBehaviour {
 	[HideInInspector] public EdgeButton currentSetEdgeButton;
 
 	void Awake(){
-		currentSetEdgeButton = set1EdgeButton;
 	}
 
 	void Start(){
@@ -28,6 +30,9 @@ public class Exercise : MonoBehaviour {
 ////			set3EdgeButton.exercise = this;
 //		}
 		parentWorkout = GetComponentInParent<Workout>();
+
+		timeLeftInSet = timeToComplete;
+		totalTime = totalSets * timeToComplete;
 	}
 
 	public void setUpForNextEdgeButton(){

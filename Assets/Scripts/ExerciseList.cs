@@ -15,6 +15,10 @@ public class ExerciseList : MonoBehaviour {
 	void Start () {
 		addExerciseButton.onClick.AddListener(HandleAddPressed);
 	}
+
+	public void PopulateList(List<Exercise> exercises){
+		
+	}
 	
 	void HandleAddPressed(){
 		ExerciseListItem exerciseListItem = Instantiate(exerciseListItemPrefab);
