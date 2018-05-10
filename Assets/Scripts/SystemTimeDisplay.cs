@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SystemTimeDisplay : MonoBehaviour {
 
-	public Text timeText;
+	public TextMeshProUGUI timeText;
 
 	private string minutes;
 
@@ -22,9 +23,9 @@ public class SystemTimeDisplay : MonoBehaviour {
 		}
 
 		if (System.DateTime.Now.Hour > 12) {
-			timeText.text = System.DateTime.Now.Hour - 12 + ":" + minutes + " PM";
+			timeText.text = System.DateTime.Now.Hour - 12 + ":" + minutes;
 		} else {
-			timeText.text = System.DateTime.Now.Hour + ":" + minutes + " AM";
+			timeText.text = System.DateTime.Now.Hour + ":" + minutes;
 		}
 	}
 }

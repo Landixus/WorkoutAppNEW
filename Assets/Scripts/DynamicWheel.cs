@@ -41,8 +41,9 @@ public class DynamicWheel : MonoBehaviour {
 	public PanelsGridLayout panelsGridLayout;
 
 	void Awake(){
-
-		exercises = workout.exercises;
+		
+		//exercises = workout.exercises;
+		exercises = GetComponentInParent<Hweel>().workout.exercises;
 
 		if(Instance == null){
 			Instance = this;
@@ -94,9 +95,9 @@ public class DynamicWheel : MonoBehaviour {
 			newNotchVector3 = new Vector3(0,0,newNotchAngle);
 			notchAngles.Add(newNotchAngle);
 
-			GameObject newNotch = CreateNotch();
-			newNotch.transform.eulerAngles = -newNotchVector3;
-			notches.Add(newNotch);
+//			GameObject newNotch = CreateNotch();
+//			newNotch.transform.eulerAngles = -newNotchVector3;
+//			notches.Add(newNotch);
 
 			PieSlice newSlice = CreatePieSlice();
 			newSlice.transform.eulerAngles = -newNotchVector3;

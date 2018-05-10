@@ -8,7 +8,8 @@ public class Workout : MonoBehaviour {
 
 	public List<Exercise> exercises;
 
-	[HideInInspector] public int totalTime;
+	[HideInInspector] public int totalSeconds;
+	[HideInInspector] public int totalMinutes;
 
 	void Awake(){
 		CalculateTotalTime();
@@ -16,10 +17,12 @@ public class Workout : MonoBehaviour {
 
 	public void CalculateTotalTime(){
 
-		totalTime = 0;
+		totalSeconds = 0;
 
 		foreach(Exercise exercise in exercises){
-			totalTime = totalTime + (exercise.setsRemaining * exercise.timeToComplete);
+			totalSeconds = totalSeconds + (exercise.setsRemaining * exercise.timeToComplete);
 		}
+
+		totalMinutes = totalSeconds/60;
 	}
 }

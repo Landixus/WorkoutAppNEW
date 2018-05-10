@@ -28,6 +28,8 @@ public class HweelTimer : MonoBehaviour {
 	public List<TextMeshProUGUI> texts;
 	private int _colorIndex;
 
+	public List<Image> images;
+
 	//[HideInInspector]public PieSlice activePieSlice;
 
 	void Awake(){
@@ -44,7 +46,7 @@ public class HweelTimer : MonoBehaviour {
 
 		direction = new Vector3(0,0,1);
 
-		rotationSpeed = 360f / hweel.workout.totalTime;
+		rotationSpeed = 360f / hweel.workout.totalSeconds;
 
 		currentExercise = hweel.workout.exercises[0];
 
@@ -97,14 +99,17 @@ public class HweelTimer : MonoBehaviour {
 	}
 
 	void UpdateColor(){
+
+		Color newColor = new Color();
+
 		foreach (TextMeshProUGUI text in texts) {
-			Color newColor = hweel.dynamicWheel.pieSlices[_colorIndex].image.color;
+			newColor = hweel.dynamicWheel.pieSlices[_colorIndex].image.color; //TODO only do this once
 			text.color = newColor;
 		}
 
-//		foreach (Image image in imagesToChangeColor){
-//			image.color = currentExercise.set1EdgeButton.initialColor;
-//		}
+		foreach (Image image in images){
+			image.color = newColor;
+		}
 
 		_colorIndex++;
 	}

@@ -14,13 +14,14 @@ public class PauseButton : MonoBehaviour {
 
 	public static PauseButton Instance;
 
-	[HideInInspector]public Text text;
+	public Image spriteHolder;
+	public Sprite pauseSprite;
+	public Sprite playSprite;
 
 	void Awake(){
 		if (Instance == null) {
 			Instance = this;
 		}
-		text = GetComponentInChildren<Text>();
 	}
 
 	void Start () {
@@ -31,17 +32,18 @@ public class PauseButton : MonoBehaviour {
 	void HandleClick(){
 		if (Time.timeScale != 1) {
 			Time.timeScale = 1;
-			text.text = "| |";
+			spriteHolder.sprite = pauseSprite;
 			restartButton.transform.localScale = Vector3.zero;
 		} else {
 			Time.timeScale = 0;
-			text.text = ">";
+			spriteHolder.sprite = playSprite;
 			restartButton.transform.localScale = Vector3.one;
 		}
 	}
 
 	void HandleRestart(){
 		Time.timeScale = 1;
+		Destroy(HweelTimer.Instance.hweel.gameObject);
 		SceneManager.LoadScene(0);
 	}
 }

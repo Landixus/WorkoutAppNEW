@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/V2/Home.unity
+- path: Assets/Scenes/V2/WatchHome.unity
   isLoaded: 1
   isActive: 1

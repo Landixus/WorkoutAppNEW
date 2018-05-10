@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Hweel : CarouselScrollItem {
 
@@ -43,6 +44,9 @@ public class Hweel : CarouselScrollItem {
 
 	public GameObject pauseMenu;
 
+	public TextMeshProUGUI title;
+	public TextMeshProUGUI minuteAmount;
+
 	override public void Awake() {
 		base.Awake();
 
@@ -58,6 +62,8 @@ public class Hweel : CarouselScrollItem {
 		}else{
 			Debug.LogError("Need to assign panelsGridLayout to " + gameObject.name);
 		}
+
+		title.text = workout.name;
 	}
 
 	void Start(){
@@ -70,6 +76,8 @@ public class Hweel : CarouselScrollItem {
 		playButton.onClick.AddListener(HandlePlay);
 
 		animationSpeed = .25f;
+
+		minuteAmount.text = workout.totalMinutes.ToString();
 	}
 	
 //	void Update () {
@@ -120,6 +128,7 @@ public class Hweel : CarouselScrollItem {
 		_cloneHweel.transform.DOScale(Vector3.one,animationSpeed);
 		_cloneHweel.outerCircleMask.transform.DOMove(CenterOfScreen.Instance.transform.position,animationSpeed);
 		_cloneHweel.outerCircleMask.DOSizeDelta(outerCircleOpenPos, animationSpeed);
+
 	}
 
 	public void CloseToCircleWATCH(){
